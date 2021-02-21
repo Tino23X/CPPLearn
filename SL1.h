@@ -55,7 +55,7 @@ void sl2_3()
 		cout << i << endl;
 	}
 
-	cout << "---------Refrence---------" << endl;
+	cout << "---------Reference---------" << endl;
 	for (auto& i : vi)
 	{
 		cout << i << endl;
