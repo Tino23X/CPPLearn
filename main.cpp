@@ -1,8 +1,9 @@
 #include "SL1.h"
+#include "TestClass.h"
 
 int main()
 {
-	sl2_3();
+	TemplateTestClass<int> temp(3);
 
 	return 0;
 

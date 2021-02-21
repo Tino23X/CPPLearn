@@ -23,5 +23,8 @@
     <ClInclude Include="SL1.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="TestClass.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
