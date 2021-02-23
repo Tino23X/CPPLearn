@@ -139,11 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SL1.h" />
-    <ClInclude Include="TestClass.h" />
+    <ClInclude Include="src\learn\ContainersTest.h" />
+    <ClInclude Include="src\learn\SL1.h" />
+    <ClInclude Include="src\learn\TestClass.h" />
+    <ClInclude Include="src\RayTrace\geometry.h" />
+    <ClInclude Include="src\RayTrace\RayTraceMain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
