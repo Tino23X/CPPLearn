@@ -10,7 +10,18 @@ void LearnTest()
 	//TestVector();
 	//TestList();
 	//TestListForward();
-	TestDeque();
+	//TestDeque();
+	//TestStack();
+	//TestQueue();
+	//TestMultiset();
+	//TestMultimap();
+	//TestUnorderedMultiset();
+	//TestUnorderedMultimap();
+	//TestSet();
+	//TestMap();
+	//TestUnorderedSet();
+	TestUnorderedMap();
+
 }
 
 void RayTraceTest()
