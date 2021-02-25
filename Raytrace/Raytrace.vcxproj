@@ -143,8 +143,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\RayTrace\geometry.h" />
+    <ClInclude Include="src\material.h" />
     <ClInclude Include="src\screen.h" />
-    <ClInclude Include="src\Sphere.h" />
+    <ClInclude Include="src\sphere.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
