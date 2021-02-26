@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\RayTrace\geometry.h" />
+    <ClInclude Include="src\light.h" />
     <ClInclude Include="src\material.h" />
     <ClInclude Include="src\screen.h" />
     <ClInclude Include="src\sphere.h" />
