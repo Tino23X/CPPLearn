@@ -7,7 +7,7 @@ using namespace std;
 class Screen
 {
 public:
-	Screen(int w, int h) : width(w), height(h), frameBuffer(w* h),fov(M_PI / 2.0), originPoint(0, 0, 0) {}
+	Screen(int w, int h) : width(w), height(h), frameBuffer(w* h),fov(M_PI / 3.0), originPoint(0, 0, 0) {}
 	void Render() {
 
 		ofstream ofs; // save the framebuffer to file
@@ -30,7 +30,7 @@ public:
 			for (size_t i = 0; i < width; ++i)
 			{
 				float x = (2 * (i + 0.5) / (float)width - 1) * tan(fov / 2.0) * width / (float)height;
-				float y = (2 * (j + 0.5) / (float)height - 1) * tan(fov / 2.0);
+				float y = -(2 * (j + 0.5) / (float)height - 1) * tan(fov / 2.0);
 				Vec3f dir = Vec3f(x, y, -1).normalize();
 				frameBuffer[i + j * width] = CastRay(originPoint, dir, spheres);
 			}
@@ -61,9 +61,11 @@ public:
 				sphereDist = tmpDist;
 				hitPoint = orig + dir * tmpDist;
 				hitPointNormal = (hitPoint - sphere.GetCenter()).normalize();
+				material = sphere.GetMaterial();
 			}
 		}
 
+		return sphereDist < 1000;
 	}
 
 	Vec3f CastRay(const Vec3f& orig, const Vec3f& dir, const vector<Sphere>& spheres)

@@ -36,6 +36,7 @@ public:
 	}
 
 	Vec3f GetCenter() { return center; }
+	Material GetMaterial() { return material; }
 
 private:
 	Vec3f center;

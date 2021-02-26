@@ -1,5 +1,7 @@
 #include <iostream>
 #include "screen.h"
+#include "material.h"
+#include "sphere.h"
 
 using namespace std;
 
@@ -15,7 +17,7 @@ int main()
 	spheres.push_back(Sphere(Vec3f(7, 5, -18), 4.0f, ivory));
 
 	Screen screen(1024, 768);
-	screen.SetFrameBuffer(sphere);
+	screen.SetFrameBuffer(spheres);
 	screen.Render();
 
 	return 0;
