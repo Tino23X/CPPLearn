@@ -76,15 +76,25 @@ public:
 		return sphereDist < 1000;
 	}
 
-	Vec3f CastRay(const Vec3f& orig, const Vec3f& dir, const vector<Sphere>& spheres, const vector<Light>& lights)
+	Vec3f CastRay(const Vec3f& orig, const Vec3f& dir, const vector<Sphere>& spheres, const vector<Light>& lights, size_t depth = 0)
 	{
 		Vec3f hitPoint;
 		//光线目标点到Camera的向量
 		Vec3f hitPointToCameraNormal;
 		Material material;
 
-		if (!SceneIntersect(orig, dir, spheres, hitPoint, hitPointToCameraNormal, material))
+		if (depth > 4 || !SceneIntersect(orig, dir, spheres, hitPoint, hitPointToCameraNormal, material))
 			return Vec3f(0.2, 0.7, 0.8);
+
+		//反射工作,确立反射顶点的时候有疑问
+		Vec3f reflectDir = Reflect(dir, hitPointToCameraNormal).normalize();
+		Vec3f reflectOrig = reflectDir * hitPointToCameraNormal < 0 ? hitPoint - hitPointToCameraNormal * 1e-3 : hitPoint + hitPointToCameraNormal * 1e-3;
+		Vec3f reflectColor = CastRay(reflectOrig, reflectDir, spheres, lights, depth + 1);
+
+		//折射工作
+		Vec3f refractDir = Refract(dir, hitPointToCameraNormal, material.GetRefractiveIndes()).normalize();
+		Vec3f refractOrig = refractDir * hitPointToCameraNormal < 0 ? hitPoint - hitPointToCameraNormal * 1e-3 : hitPoint + hitPointToCameraNormal * 1e-3;
+		Vec3f refractColor = CastRay(refractOrig, refractDir, spheres, lights, depth + 1);
 
 		float diffuseLightIntensity = 0;
 		float specularLightIntensity = 0;
@@ -94,12 +104,56 @@ public:
 			//计算光的方向
 			Vec3f lightDir = (light.GetPosition() - hitPoint).normalize();
 
+			//计算阴影
+			//求出光线到交点的距离
+			float lightDistance = (light.GetPosition() - hitPoint).norm();
+
+			//Todo 设置阴影的起点，没有明白
+			Vec3f shadowOrig = lightDir * hitPointToCameraNormal < 0 ? hitPoint - hitPointToCameraNormal * 1e-3 : hitPoint + hitPointToCameraNormal * 1e-3;
+
+			//shadow的交点
+			Vec3f shadowHitPoint;
+			//shadow的表面法线
+			Vec3f shadowNormal;
+
+			Material tmpMaterial;
+			if (SceneIntersect(shadowOrig, lightDir, spheres, shadowHitPoint, shadowNormal, tmpMaterial) && (shadowHitPoint - shadowOrig).norm() < lightDistance)
+				continue;
+
 			diffuseLightIntensity += light.GetIntensity() * max(0.f, lightDir * hitPointToCameraNormal);
 			//将目标点反射向量和视线向量做点乘，拿到当前点的夹角（越小值越大）, 然后和高光系数做幂运算。
 			specularLightIntensity += pow(max(0.f, -Reflect(-lightDir, hitPointToCameraNormal) * dir), material.GetSpecularExponent()) * light.GetIntensity();
 		}
 
-		return material.GetDiffuseColor() * diffuseLightIntensity * material.GetAlbedo()[0] + Vec3f(1, 1, 1) * specularLightIntensity * material.GetAlbedo()[1];
+		return material.GetDiffuseColor() * diffuseLightIntensity * material.GetAlbedo()[0] + Vec3f(1, 1, 1) * specularLightIntensity * material.GetAlbedo()[1] + reflectColor * material.GetAlbedo()[2] + refractColor * material.GetAlbedo()[3];
+	}
+
+	/// <summary>
+	/// Snell‘s loaw 折射方程
+	/// </summary>
+	/// <param name="I"></param>
+	/// <param name="normal"></param>
+	/// <param name="refractiveIndex"></param>
+	/// <returns></returns>
+	Vec3f Refract(const Vec3f& I, const Vec3f& normal, const float& refractiveIndex)
+	{
+		float cosi = -max(-1.f, min(1.0f, I * normal));
+		float etai = 1;
+		float etat = refractiveIndex;
+
+		Vec3f n = normal;
+		// if the ray is inside the object, swap the indices and invert the normal to get the correct result
+		if (cosi < 0)
+		{
+			cosi = -cosi;
+			std::swap(etai, etat);
+			n = -normal;
+		}
+
+		float eta = etai / etat;
+		float k = 1 - eta * eta * (1 - cosi * cosi);
+
+		return k < 0 ? Vec3f(0, 0, 0) : I * eta + n * (eta * cosi - sqrtf(k));
 
 	}
 
