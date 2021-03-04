@@ -94,7 +94,6 @@ public:
 			}
 		}
 
-
 		return min(sphereDist, checkerBoardDist) < 1000;
 	}
 
