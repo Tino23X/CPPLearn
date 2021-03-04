@@ -73,7 +73,29 @@ public:
 			}
 		}
 
-		return sphereDist < 1000;
+		//检测并绘制一个棋盘格
+		float checkerBoardDist = numeric_limits<float>::max();
+		//如果方向向量的y轴大于一个阈值，就进行检测，是一种优化
+		if (fabs(dir.y) > 0.003f)
+		{
+			//板子绘制的高度
+			float d = -(orig.y - 4) / dir.y; //the checkerboard plane has quiation y = -4;
+
+			Vec3f pt = orig + dir * d;
+
+			//确定板子的长宽
+			if (d > 0 && fabs(pt.x) < 10 && pt.z < -10 && pt.z > -30 && d < sphereDist)
+			{
+				checkerBoardDist = d;
+				hitPoint = pt;
+				hitPointNormal = Vec3f(0, 1, 0);
+				material.GetDiffuseColor() = (int(0.5f * hitPoint.x + 1000) + int(0.5f * hitPoint.z)) & 1 ? Vec3f(1, 1, 1) : Vec3f(0, 0, 0);
+				material.GetDiffuseColor() = material.GetDiffuseColor() * 0.3f;
+			}
+		}
+
+
+		return min(sphereDist, checkerBoardDist) < 1000;
 	}
 
 	Vec3f CastRay(const Vec3f& orig, const Vec3f& dir, const vector<Sphere>& spheres, const vector<Light>& lights, size_t depth = 0)

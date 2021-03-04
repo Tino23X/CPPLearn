@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\stb\stb_vorbis.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\RayTrace\geometry.h" />
@@ -147,6 +148,27 @@
     <ClInclude Include="src\material.h" />
     <ClInclude Include="src\screen.h" />
     <ClInclude Include="src\sphere.h" />
+    <ClInclude Include="src\stb\stb.h" />
+    <ClInclude Include="src\stb\stb_connected_components.h" />
+    <ClInclude Include="src\stb\stb_c_lexer.h" />
+    <ClInclude Include="src\stb\stb_divide.h" />
+    <ClInclude Include="src\stb\stb_ds.h" />
+    <ClInclude Include="src\stb\stb_dxt.h" />
+    <ClInclude Include="src\stb\stb_easy_font.h" />
+    <ClInclude Include="src\stb\stb_herringbone_wang_tile.h" />
+    <ClInclude Include="src\stb\stb_image.h" />
+    <ClInclude Include="src\stb\stb_image_resize.h" />
+    <ClInclude Include="src\stb\stb_image_write.h" />
+    <ClInclude Include="src\stb\stb_include.h" />
+    <ClInclude Include="src\stb\stb_leakcheck.h" />
+    <ClInclude Include="src\stb\stb_perlin.h" />
+    <ClInclude Include="src\stb\stb_rect_pack.h" />
+    <ClInclude Include="src\stb\stb_sprintf.h" />
+    <ClInclude Include="src\stb\stb_textedit.h" />
+    <ClInclude Include="src\stb\stb_tilemap_editor.h" />
+    <ClInclude Include="src\stb\stb_truetype.h" />
+    <ClInclude Include="src\stb\stb_voxel_render.h" />
+    <ClInclude Include="src\stb\stretchy_buffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
