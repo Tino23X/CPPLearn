@@ -24,7 +24,6 @@ int main()
 	BackgroundDrawing();
 	return 0;
 
-
 	Material ivory(1.0, Vec4f(0.6f, 0.3f, 0.1f, 0.0f), Vec3f(0.4, 0.4, 0.3), 50.);
 	Material glass(1.5, Vec4f(0.0f, 0.5f, 0.1f, 0.8f), Vec3f(0.6, 0.7, 0.8), 125.);
 	Material redBubber(1.0, Vec4f(0.9f, 0.1f, 0.0f, 0.0), Vec3f(0.3, 0.1, 0.1), 10.);
