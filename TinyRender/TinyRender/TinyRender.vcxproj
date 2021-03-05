@@ -140,9 +140,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Src\main.cpp" />
+    <ClCompile Include="Src\model.cpp" />
     <ClCompile Include="Src\tgaimage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\geometry.h" />
+    <ClInclude Include="Src\model.h" />
     <ClInclude Include="Src\tgaimage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
