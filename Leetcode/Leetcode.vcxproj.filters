@@ -23,5 +23,8 @@
     <ClInclude Include="src\Topic1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Topic2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
