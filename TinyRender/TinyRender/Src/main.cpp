@@ -333,8 +333,11 @@ void RenderTriangle()
 	image.write_tga_file("output.tga");
 }
 
+
+
 int main(int argc, char** argv)
 {
+
 	RenderTriangle();
 	return 0;
 
